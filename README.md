@@ -2,7 +2,7 @@
 
 ## como funciona:
 
-###OBS PACOTE SITEMA FOI APENAS PARA TESTES
+### OBS PACOTE SITEMA FOI APENAS PARA TESTES
 
 o pacote factory se conecta ao banco (mysql)
 
