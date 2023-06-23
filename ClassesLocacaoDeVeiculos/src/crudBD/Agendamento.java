@@ -10,7 +10,7 @@ import entidades.Automovel;
 import entidades.Cliente;
 import factory.ConnectionFactory;
 
-public class Agendamento {
+public class Agendamento implements AgendamentoDeCarros, AgendamentoDeClientes{
 	//salvar carro
 		public void save(Automovel carro) {
 			String sql = "INSERT INTO carros(placa, marca, modelo, status_carro, preco) VALUES(?, ?, ?, ?, ?)";

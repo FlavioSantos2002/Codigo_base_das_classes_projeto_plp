@@ -1,197 +1,23 @@
 package crudBD;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Automovel;
-import factory.ConnectionFactory;
 
-public class AgendamentoDeCarros {
+interface AgendamentoDeCarros {
 	
 	//salvar carro
-	public void saveCarro(Automovel carro) {
-		String sql = "INSERT INTO carros(placa, marca, modelo, status_carro, preco) VALUES(?, ?, ?, ?, ?)";
-		
-		Connection conn = null;
-		
-		PreparedStatement pstm = null;
-		
-		try {
-			//cria conexão com o bd
-			conn = ConnectionFactory.createConnectionToMySQL();
-			
-			//cria uma PreparedStatement para executar uma query
-			pstm = (PreparedStatement) conn.prepareStatement(sql);
-			
-			
-			pstm.setString(1, carro.getPlaca());
-			pstm.setString(2, carro.getMarca());
-			pstm.setString(3, carro.getModelo());
-			pstm.setString(4, carro.getStatus());
-			pstm.setDouble(5, carro.getPreco());
-			
-			//Executa query
-			pstm.execute();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			//fecha conexoes
-			try {
-				if (pstm != null) {
-					pstm.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			}catch (Exception e){
-				e.printStackTrace();
-			}
-		}
-	}
+	void save(Automovel carro);
 
 	//listar carros
 	
-	public List<Automovel> getCarros(){
-		
-		String sql = "SELECT * FROM listas.carros";
-		
-		List<Automovel> carros = new ArrayList<Automovel>();
-		
-		Connection conn = null;
-		PreparedStatement pstm = null;
-		//Classe que vai recuperar os dados do banco. ***SELECT****
-		ResultSet rset = null;
-		
-		try {
-			conn = ConnectionFactory.createConnectionToMySQL();
-			
-			pstm = (PreparedStatement) conn.prepareStatement(sql);
-			
-			rset = pstm.executeQuery();
-			
-			while (rset.next()) {
-				
-				Automovel carro = new Automovel();
-				
-				//Recuperar placa
-				carro.setPlaca(rset.getString("placa"));;
-				//Recuperar marca
-				carro.setMarca(rset.getString("marca"));
-				//Recuperar modelo
-				carro.setModelo(rset.getString("modelo"));
-				//Recuperar status do carro
-				carro.setStatus(rset.getString("status_carro"));
-				//Recuperar preco
-				carro.setPreco(rset.getDouble("preco"));
-				
-				
-				carros.add(carro);
-				
-			}
-		}catch (Exception e) {
-				e.printStackTrace();
-			}finally {
-				try {
-					if(rset!=null) {
-						rset.close();
-					}
-					
-					if(pstm!=null) {
-						pstm.close();
-					}
-					
-					if(conn!=null) {
-						conn.close();
-					}
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-		
-			return carros;
-	}
+	List<Automovel> getCarros();
 	
 	//editar
 	
-	public void update(Automovel carro) {
-		
-		String sql = "UPDATE carros SET marca = ?, modelo = ?, status_carro = ?, preco = ? " + 
-		"WHERE placa = ?";
-		
-		Connection conn = null;
-		
-		PreparedStatement pstm = null;
-		
-		try {
-			//cria conexão
-			conn = ConnectionFactory.createConnectionToMySQL();
-			
-			//criar a classe para executar a query
-			pstm = (PreparedStatement) conn.prepareStatement(sql);
-			
-			//adicionar os valores para atualizar
-			pstm.setString(1, carro.getMarca());
-			pstm.setString(2, carro.getModelo());
-			pstm.setString(3, carro.getStatus());
-			pstm.setDouble(4, carro.getPreco());
-			
-			//qual id pra atualizar
-			pstm.setString(5, carro.getPlaca());
-			
-			//executar
-			pstm.execute();
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(pstm != null) {
-					pstm.close();
-				}
-				if(conn != null) {
-					conn.close();
-				}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}	
-	}
+	void update(Automovel carro);
 	
-	public void deleteByPLACA(String placa) {
-		
-		String sql = "DELETE FROM carros WHERE placa = ?";
-		
-		Connection conn = null;
-		
-		PreparedStatement pstm = null;
-		
-		try {
-			//cria conexão
-			conn = ConnectionFactory.createConnectionToMySQL();
-			
-			//criar a classe para executar a query
-			pstm = (PreparedStatement) conn.prepareStatement(sql);
-			
-			pstm.setString(1, placa);
-			
-			pstm.execute();
-		}catch (Exception e){
-			e.printStackTrace();
-		}finally {
-			try {
-				if(pstm != null) {
-					pstm.close();
-				}
-				if(conn != null) {
-					conn.close();
-				}
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}
-		
-	}
+	//deletar carro pela placa
+	
+	void delete(String placa);
 }

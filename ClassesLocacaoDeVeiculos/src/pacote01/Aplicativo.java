@@ -2,8 +2,7 @@ package pacote01;
 
 import java.time.LocalDate;
 
-import crudBD.AgendamentoDeCarros;
-import crudBD.AgendamentoDeClientes;
+import crudBD.Agendamento;
 import crudBD.AlugarCarro;
 import entidades.Aluguel;
 import entidades.Automovel;
@@ -23,35 +22,32 @@ public class Aplicativo {
 		//cliente.setEndereco("rua 4; bairro: taruma; casa: 125");
 		//cliente.setTelefone("91179671");
 		
-		AgendamentoDeClientes agendar = new AgendamentoDeClientes();
-		AgendamentoDeCarros cadastro_carro = new AgendamentoDeCarros();
 		AlugarCarro alugar = new AlugarCarro();
-		
+		Agendamento agenda = new Agendamento();
 		//agendar.saveCliente(cliente); 
 		
 		//agendar.update(cliente);
 		
-		//carro.setMarca("fiat");
-		//carro.setModelo("uno");
+		//carro.setMarca("Ferrari");
+		//carro.setModelo("355 GTS F1");
 		//carro.setStatus("Disponível");
-		//carro.setPreco(1500.50);
-		//carro.setPlaca("BRB00C1");
+		//carro.setPreco(3000.50);
+		//carro.setPlaca("NER-6004");
+		
+		//agenda.save(carro);
 		
 		
-		//cadastro_carro.saveCarro(carro);
 		
-		//aluguel.setData_aluguel(LocalDate.parse("2023-06-09"));
-		//aluguel.setData_retorno(LocalDate.parse("2023-06-20"));
-		//aluguel.setTaxa(1000.50);
-		//alugar.alugarCarro(aluguel, carro, cliente, 6, "BRB00C1");
-		//retorno.setData_retorno(LocalDate.parse("2023-06-30"));
-		//retorno.setAtraso(4);
-		//retorno.setMultaConta(4000);
-		//alugar.retorna_carro(retorno, 5);
+		//aluguel.setData_aluguel(LocalDate.parse("2023-06-23"));
+		//aluguel.setData_retorno(LocalDate.parse("2023-06-30"));
+		//aluguel.setTaxa(400.50);
+		//alugar.alugarCarro(aluguel, carro, cliente, 5, "NER-6004");
+		retorno.setData_retorno(LocalDate.parse("2023-06-30"));
+		retorno.setAtraso(9);
+		retorno.setMultaConta(5000);
+		alugar.retorna_carro(retorno, 6);
 		//cadastro_carro.deleteByPLACA("BRB12C4");
-		for (Retorno c: alugar.getRetornos()) {
-			System.out.println(c);
-		}
+		
 		//for (Automovel a: cadastro_carro.getCarros()) {
 		//	System.out.println(a);
 		//}
